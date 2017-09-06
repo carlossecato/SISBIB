@@ -11,18 +11,30 @@
 
 int main(){
 
-	int op, op2;
+	int op, op2,opcao, erro;
+	elem X,aux;
 	Pilha P;
 	Fila F;
-
+	Cria(&F);
 	do{
 	
 	op=menu();
 	
 	switch(op){
 	
-	  case 1:
-	  break;
+	  case 1: 	do{
+			X=cadastra(&F);
+			Entra(&F,&X,&erro);
+			printf("Deseja realizar mais um cadastro? (1-sim, 0-nao)");
+	        	scanf("%d",&opcao);
+        
+        }while(opcao==1 && !EstaCheia(&F));
+	
+	while(!EstaVazia(&F)){
+	Sai(&F,&aux,&erro);
+	printf("%s",aux.nome);
+	}
+          break;
 	  case 2:
 	  break;
 	  case 3: 
@@ -36,7 +48,7 @@ int main(){
 	  case 7: return 0;
  	  break;
 	
-	default: printf("Opcao Invalida");
+	default: printf("Opcao Invalida!");
 	break;
 	}
 

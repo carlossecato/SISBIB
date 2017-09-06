@@ -25,3 +25,16 @@ int  menu(){
 	return opcao;
 }
 
+elem cadastra(Fila *F){
+	int op;
+	elem A;
+
+	if(!EstaCheia(F)){
+	printf("Nome: "); scanf("%s", A.nome);
+	printf("Num USP: "); scanf("%s", A.nusp);
+	printf("Telefone: "); scanf("%s", A.tel);
+	printf("Email: "); scanf("%s", A.email);
+	return A;
+	} else printf("Erro ao cadastrar");
+		
+}

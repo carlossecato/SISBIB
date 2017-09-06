@@ -70,7 +70,7 @@ void Sai(Fila *F, elem *X, int *erro) {
      return;
 }
 
-
+/*
 //função que verifica se os elementos de uma pilha estão em ordem crescente
 int Crescente(Fila *F) {
     elem primeiro, seguinte;
@@ -163,3 +163,5 @@ void Unir(Fila *F1, Fila *F2, Fila *F3, int *erro) {
      }
 
 }
+
+*/
