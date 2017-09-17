@@ -4,7 +4,7 @@
 #define TamFila 100
 
 
-typedef struct elem{
+typedef struct {
 	char nome[50];
 	char nusp[10];
 	char tel[10];
@@ -14,7 +14,7 @@ typedef struct elem{
 typedef struct {
 			int inicio, fim, total;
 			elem itens[TamFila];
-} Fila;
+}Fila;
 
 
 

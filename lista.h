@@ -1,40 +1,71 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include "fila.h"
 
-typedef int eleml;
-
-typedef struct bloco {
-	eleml info;
-	struct bloco *prox;
-}no;
+#define TamLista 100
+#define TamListaLivro 100
 
 typedef struct {
-	no *inicio, *fim;
+        char nome[50];
+        char nusp[10];
+        char tel[10];
+        char email[30];
+}eleml;
+
+
+
+typedef struct {
+	int qtd;
+	eleml dados[TamLista];
 }Lista;
+
+typedef struct {
+        char titulo[50];
+        char autor[10];
+        char ISBN[10];
+        char editora[30];
+	int ano;
+	int exemplar;
+	char edicao[10];
+	int disponivel;
+	Fila F;
+}elemLivro;
+
+typedef struct {
+        int qtd;
+        elemLivro dados[TamListaLivro];
+}ListaLivros;
+
 
 
 void cria(Lista*);
 
-void inserir(Lista*,eleml*,int*);
+void cria_livros(ListaLivros*);
 
-void finaliza(Lista*);
+void libera_lista(Lista* L);
 
-int tamanho(Lista*);
+void liberaLivros(ListaLivros*);
 
-int tamanho_rec(no*);
+int consulta_lista_pos(Lista* L, int pos, eleml *X);
 
-int esta_na_lista(Lista*,eleml*);
+int consulta_lista_mat(Lista* L, int mat, eleml *X);
 
-int esta_na_lista_rec(no*,eleml*);
+int insere_lista(Lista* L, eleml *X);
 
-void imprimir(Lista*);
+int insereListaLivros(ListaLivros*, elemLivro*);
 
-//deixar a função "eliminar" para o fim, pois é mais complexa
+int remove_lista(Lista* L, char*);
 
-void eliminar(Lista*,eleml*,int*);
+int removeListaLivro(ListaLivros*, char*, int*);
 
-void eliminar_rec(Lista*,no*,no*,eleml*,int*);
+int tamanho_lista(Lista* L);
 
+int lista_cheia(Lista* L);
 
+int listaLivro_cheia(ListaLivros *LL);
 
+int lista_vazia(Lista* L);
 
+void imprime_lista(Lista* L);
+
+void imprimeListaLivro(ListaLivros*);

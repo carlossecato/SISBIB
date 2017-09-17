@@ -1,133 +1,147 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
+
 #include "lista.h"
 
 
-void cria(Lista *L){
-	L->inicio = NULL;
-	L->fim = NULL;
+void cria_lista(Lista *L){
+	L->qtd = 0;
 }
 
-void inserir(Lista *L, eleml *X, int *erro){
-	no *p;
-
-	p = (no*) malloc(sizeof(no));
-	if(p==NULL) {
-	*erro = 1;
-	return;
-	}
-	else *erro = 0;
-	p->info = *X;
-	p->prox = NULL;
-	if(L->inicio == NULL)
-	L->inicio = p;
-	else L->fim->prox = p;
-	L->fim = p;
+void cria_livros(ListaLivros *LL){
+	LL->qtd = 0;
 }
 
-void finaliza(Lista *L){
-	no *p;
-	p = L->inicio;
-	while (p!=NULL){
-		L->inicio = L->inicio->prox;
-		free(p);
-		p = L->inicio;
-	}
-	L->fim = NULL;
+
+void libera_lista(Lista* L){
+	L->qtd = 0;
 }
 
-int tamanho(Lista *L){
-	no *p;
-	int contador = 0;
-	p = L->inicio;
-	while(p!=NULL){
-		contador++;
-		p = p->prox;
-	}
-	return (contador);
+void liberaLivros(ListaLivros *LL){
+	LL->qtd = 0;
 }
 
-int tamanho_rec(no *p){
-	if (p==NULL)
-	return (0);
-	else return (1+tamanho_rec(p->prox));
-}
-
-int esta_na_lista(Lista *L, eleml *X){
-	no *p;
-	p = L->inicio;
-	while((p!=NULL) && (p->info!=*X)){
-		p = p->prox;
-	}
-	if(p!=NULL) return(1);
-	else return (0);
-}
-
-int esta_na_lista_rec(no *p, eleml *x){
-	if(p==NULL)
-	return (0);
-	else if(p->info == *x)
+int consulta_lista_pos(Lista* L, int pos, eleml *X){
+	if(L == NULL || pos <= 0 ||  pos > L->qtd)
+		return 0;
+	*X = L->dados[pos-1];
 	return 1;
-	else return(esta_na_lista_rec(p->prox,x));
+
 }
 
-void imprimir(Lista *L){
-	no *p;
-	p = L->inicio;
-	while(p!=NULL){
-		printf("%c", p->info);
-		p = p->prox;
-	}
-	printf("\n\n");
-	return;
+int insere_lista(Lista* L, eleml *X){
+
+	if(L == NULL)
+        return 0;
+    if(L->qtd == TamLista)//lista cheia
+        return 0;
+    L->dados[L->qtd] = *X;
+    L->qtd++;
+    return 1;
 }
 
-void eliminar(Lista *L, eleml *X, int *erro){
-	no *p, *anterior;
-	int teste = 0;
-	
-	p = L->inicio;
-	while((p!=NULL) && (!teste)){
-		if(p->info !=*X) {
-		anterior = p;
-		p = p->prox;
-	}
-	else{
-	if(p==L->inicio){
-		L->inicio = L->inicio->prox;
-		if(L->inicio = NULL) L->fim = NULL;
-	}
-	else if(p==L->fim){
-		L->fim = anterior;
-		L->fim->prox = NULL;
-	}
-	else anterior->prox = p->prox;
-	free (p);
-	teste = 1;
-}
-}
-	*erro = !teste;
-	return;
+int insereListaLivros(ListaLivros *LL, elemLivro *X){
+	if(LL == NULL)
+        return 0;
+    if(LL->qtd == TamListaLivro)//lista cheia
+        return 0;
+    LL->dados[LL->qtd] = *X;
+    LL->qtd++;
+    return 1;
 }
 
+int remove_lista(Lista* L, char *nome){
+	if(L == NULL)
+		return 0;
+	if(L->qtd == 0)
+		return 0;
 
-void eliminar_rec(Lista *L, no* anterior, no *atual, eleml *x, int *erro){
-	if(atual == NULL)
-		*erro = 1;
-	else if(atual->info == *x) {
-		if(atual == L->inicio) {
-		L->inicio = L->inicio->prox;
-			if(L->inicio == NULL) L->fim = NULL;
-	}
-	else if(atual == L->fim) {
-		L->fim = anterior;
-		L->fim->prox = NULL;
-	}
-	else anterior->prox = atual->prox;
-	free(atual);
-	*erro = 0;
-	}
-	else eliminar_rec(L, atual, atual->prox, x, erro);
+	int k,i = 0;
+	while(i<L->qtd && strcmp(L->dados[i].nome, nome)!=0)
+		i++;
+	if(i == L->qtd)//elemento nao encontrado
+		return 0;
+
+	for(k=i; k< L->qtd-1; k++)
+		L->dados[k] = L->dados[k+1];
+	L->qtd--;
+	return 1;
 }
 
-	
+int removeListaLivro(ListaLivros *LL, char *titulo, int *exemplar){
+	if(LL == NULL)
+                return 0;
+        if(LL->qtd == 0)
+                return 0;
+
+        int k,i = 0;
+        while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && strcmp(LL->dados[i].exemplar,exemplar) !=0)
+                i++;
+        if(i == LL->qtd)//elemento nao encontrado
+                return 0;
+
+        for(k=i; k< LL->qtd-1; k++)
+                LL->dados[k] = LL->dados[k+1];
+        LL->qtd--;
+        return 1;
+}
+
+int tamanho_lista(Lista* L){
+	if(L == NULL)
+		return -1;
+	else
+		return L->qtd;
+}
+
+int lista_cheia(Lista* L){
+	if(L == NULL)
+		return -1;
+	return (L->qtd == TamLista);
+}
+
+int listaLivro_cheia(ListaLivros *LL){
+	if(LL == NULL)
+	return -1;
+	return(LL->qtd == TamListaLivro);
+}
+
+int lista_vazia(Lista* L){
+	if(L == NULL)
+		return -1;
+	return (L->qtd == 0);
+}
+
+void imprime_lista(Lista* L){
+	if(L == NULL)
+		return;
+	int i;
+
+	for(i=0; i< L->qtd; i++){
+		printf("Nome: %s\n",L->dados[i].nome);
+		printf("NUsp: %s\n",L->dados[i].nusp);
+		printf("Tel: %s\n",L->dados[i].tel);
+		printf("Email: %s\n",L->dados[i].email);
+
+		printf("-------------------------------\n");
+	}
+}
+
+void imprimeListaLivros(ListaLivros *LL){
+	if(LL == NULL)
+                return;
+        int i;
+
+        for(i=0; i< LL->qtd; i++){
+                printf("Titulo: %s\n",LL->dados[i].titulo);
+                printf("Autor: %s\n",LL->dados[i].autor);
+                printf("ISBN: %s\n",LL->dados[i].ISBN);
+                printf("Editora: %s\n",LL->dados[i].editora);
+                printf("Ano: %d\n",LL->dados[i].ano);
+                printf("Exemplar: %d\n",LL->dados[i].exemplar);
+                printf("Edicao: %s\n",LL->dados[i].edicao);
+
+                printf("-------------------------------\n");
+        }
+}
+
