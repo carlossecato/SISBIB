@@ -69,3 +69,7 @@ int lista_vazia(Lista* L);
 void imprime_lista(Lista* L);
 
 void imprimeListaLivro(ListaLivros*);
+
+eleml buscaAluno(Lista *,char*);
+
+elemLivro buscaLivro(ListaLivros *LL, char*, char*);

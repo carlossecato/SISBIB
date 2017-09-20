@@ -18,4 +18,6 @@ int removeAluno(Lista*, char*);
 
 int removeLivro(ListaLivros*, char*,int*);
 
+int retiraLivro(Lista*, ListaLivros*, char*, char*,char*);
 
+int devolveLivro(Lista*, ListaLivros*, char*, char*);

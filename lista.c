@@ -145,3 +145,22 @@ void imprimeListaLivros(ListaLivros *LL){
         }
 }
 
+eleml buscaAluno(Lista *L, char *nusp){
+
+        int i = 0;
+        while(i<L->qtd && strcmp(L->dados[i].nusp, nusp)!=0)
+                i++;
+
+        return L->dados[i];
+
+}
+
+elemLivro buscaLivro(ListaLivros *LL, char *titulo, char *exemplar){
+
+        int i = 0;
+        while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && strcmp(LL->dados[i].exemplar,exemplar) !=0)
+                i++;
+
+        return LL->dados[i];
+}
+

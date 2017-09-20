@@ -11,7 +11,7 @@
 
 int main(){
 	
-	char nome[50], titulo[50];
+	char nome[50], titulo[50], nusp[30];
 	int op, op2, erro, opcao,t, opcao2, exemplar;
 	eleml X;
 	elemLivro Y;
@@ -45,9 +45,27 @@ int main(){
 		}while(opcao2==1);
 			imprimeListaLivros(&LL);  //remover esta funcao
 	  break;
-	  case 3: 
+	  case 3: printf("Digite o nUsp do aluno: ");
+		  scanf("%s", nusp);
+		  printf("Digite o titulo do Livro: ");
+		  scanf("%s", titulo);
+		  printf("Digite o exemplar: ");
+		  scanf("%d", &exemplar);
+		t=retiraLivro(&L,&LL,&nusp,&titulo,&exemplar);	
+		if(t==0)
+			printf("Erro ao retirar Livro\n");
+		if(t==1)
+			printf("Livro retirado com sucesso\n");	
 	  break;
-	  case 4: 
+	  case 4: printf("Digite o titulo do Livro: ");
+                  scanf("%s", titulo);
+                  printf("Digite o exemplar: ");
+                  scanf("%d", &exemplar);
+                t=devolveLivro(&L,&LL,&titulo,&exemplar);
+                if(t==0)
+                        printf("Erro ao devolver Livro\n");
+                if(t==1)
+                        printf("Livro devolvido com sucesso\n"); 
 	  break;
 	  case 5:  printf("Digite o Titulo do Livro a ser removido: ");
                    scanf("%s",titulo);

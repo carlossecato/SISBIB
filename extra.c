@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 #include "lista.h"
-
+//#include "fila.h"
 
 
 int  menu(){
@@ -30,6 +31,8 @@ eleml EntraDados(Lista *L){
 	eleml A;
 
 	if(!lista_cheia(L)){
+
+		printf("   >>> SISBIB - Cadastro Aluno <<<  \n\n");
 		printf("Nome: "); scanf("%s", A.nome);
 		printf("Num USP: "); scanf("%s", A.nusp);
 		printf("Telefone: "); scanf("%s", A.tel);
@@ -57,6 +60,7 @@ elemLivro EntraDadosLivros(ListaLivros *LL){
         elemLivro A;
 
         if(!listaLivro_cheia(LL)){
+		printf("   >>> SISBIB - Cadastro Livro <<<  \n\n");
                 printf("Titulo: "); scanf("%s", A.titulo);
                 printf("Autor: "); scanf("%s", A.autor);
                 printf("ISBN: "); scanf("%s", A.ISBN);
@@ -64,6 +68,7 @@ elemLivro EntraDadosLivros(ListaLivros *LL){
                 printf("Ano: "); scanf("%d", &A.ano);
                 printf("Exemplar: "); scanf("%d", &A.exemplar);  
                 printf("Edicao: "); scanf("%s", A.edicao);
+		A.disponivel = 1;
                 return A;
         } else printf("Erro ao cadastrar");
 
@@ -71,12 +76,52 @@ elemLivro EntraDadosLivros(ListaLivros *LL){
 
 int CadastraLivro(ListaLivros *LL, elemLivro *Y, int *erro){
 	
+
 	insereListaLivros(LL,Y);
+
+	
 
 }
 
 int removeLivro(ListaLivros *LL, char *titulo, int *exemplar){
 	
 	removeListaLivro(LL,titulo,exemplar);
+
+}
+
+int retiraLivro(Lista *L, ListaLivros *LL, char *nusp, char *titulo, char *exemplar){
+		
+	eleml X;
+	elemLivro Y;
+	int i,erro;
+	
+	L->dados[i] = buscaAluno(L,nusp);
+	LL->dados[i]=buscaLivro(LL,titulo,exemplar);
+	
+	if(LL->dados[i].disponivel != 0){
+	LL->dados[i].disponivel = 0;
+	// inserir mensagem de sucesso
+	return 1;
+	}else{
+	Entra(&LL->dados[i].F,&L->dados[i],&erro);
+	printf("%d",erro);
+	return 0;
+	}
+}
+
+int devolveLivro(Lista *L, ListaLivros *LL, char *titulo, char *exemplar){
+	
+	eleml X;
+	int i,erro;		
+	LL->dados[i] = buscaLivro(LL,titulo,exemplar);
+	
+	if(LL->dados[i].disponivel == 0){
+	LL->dados[i].disponivel = 1;
+		if(!EstaVazia(&LL->dados[i].F)){
+		Sai(&LL->dados[i].F,&X,&erro);
+		printf("%s",X.nome);
+		}
+	return 1;
+	}else return 0;
 
 }
