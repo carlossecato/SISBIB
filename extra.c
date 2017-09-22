@@ -4,7 +4,7 @@
 
 #include "lista.h"
 //#include "fila.h"
-
+#include "pilha.h"
 
 int  menu(){
 
@@ -18,7 +18,8 @@ int  menu(){
 	printf("4. Retornar Livro \n");
 	printf("5. Remover Livro \n");
 	printf("6. Remover Aluno \n");
-	printf("7. Sair \n");
+	printf("7. Mensagens do Sistema \n");
+	printf("8. Sair \n");
 	printf("Escolha a opcao desejada: \n");
 
 	scanf("%d", &opcao);
@@ -33,13 +34,12 @@ eleml EntraDados(Lista *L){
 	if(!lista_cheia(L)){
 
 		printf("   >>> SISBIB - Cadastro Aluno <<<  \n\n");
-		printf("Nome: "); scanf("%s", A.nome);
+		printf("Nome: "); scanf(" %[^\n]s", A.nome); 	
 		printf("Num USP: "); scanf("%s", A.nusp);
 		printf("Telefone: "); scanf("%s", A.tel);
 		printf("Email: "); scanf("%s", A.email);
 		return A;
 	} else printf("Erro ao cadastrar");
-
 }
 
 int Cadastra(Lista *L, eleml *X){
@@ -61,10 +61,10 @@ elemLivro EntraDadosLivros(ListaLivros *LL){
 
         if(!listaLivro_cheia(LL)){
 		printf("   >>> SISBIB - Cadastro Livro <<<  \n\n");
-                printf("Titulo: "); scanf("%s", A.titulo);
-                printf("Autor: "); scanf("%s", A.autor);
+		printf("Titulo: "); scanf(" %[^\n]s", A.titulo);
+                printf("Autor: "); scanf(" %[^\n]s", A.autor);
                 printf("ISBN: "); scanf("%s", A.ISBN);
-                printf("Editora: "); scanf("%s", A.editora);
+                printf("Editora: "); scanf(" %[^\n]s", A.editora); 
                 printf("Ano: "); scanf("%d", &A.ano);
                 printf("Exemplar: "); scanf("%d", &A.exemplar);  
                 printf("Edicao: "); scanf("%s", A.edicao);
@@ -89,37 +89,43 @@ int removeLivro(ListaLivros *LL, char *titulo, int *exemplar){
 
 }
 
-int retiraLivro(Lista *L, ListaLivros *LL, char *nusp, char *titulo, char *exemplar){
+int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, int *exemplar){
 		
 	eleml X;
 	elemLivro Y;
 	int i,erro;
 	
-	L->dados[i] = buscaAluno(L,nusp);
-	LL->dados[i]=buscaLivro(LL,titulo,exemplar);
+	X = buscaAluno(L,nusp);
+	i = buscaLivro(LL,titulo,exemplar);
+	
 	
 	if(LL->dados[i].disponivel != 0){
 	LL->dados[i].disponivel = 0;
-	// inserir mensagem de sucesso
+	// inserir mensagem de sucesso	
+	
 	return 1;
 	}else{
-	Entra(&LL->dados[i].F,&L->dados[i],&erro);
-	printf("%d",erro);
-	return 0;
-	}
+	
+	Entra(&LL->dados[i].F,&X,&erro);	
+	printf("%s",X.nome);
+}return 0;
+
+	
 }
 
-int devolveLivro(Lista *L, ListaLivros *LL, char *titulo, char *exemplar){
+int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exemplar){
 	
 	eleml X;
-	int i,erro;		
-	LL->dados[i] = buscaLivro(LL,titulo,exemplar);
+	int i,erro;
+	char msg[100] = "O livro está disponivel. E sua vez ";		
+	 i = buscaLivro(LL,titulo,exemplar);
 	
 	if(LL->dados[i].disponivel == 0){
 	LL->dados[i].disponivel = 1;
 		if(!EstaVazia(&LL->dados[i].F)){
 		Sai(&LL->dados[i].F,&X,&erro);
-		printf("%s",X.nome);
+		P->mensagem = msg;
+		Push(P,X.nome);
 		}
 	return 1;
 	}else return 0;

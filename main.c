@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include<string.h>
 
 
 #include "extra.h"
@@ -16,10 +16,10 @@ int main(){
 	eleml X;
 	elemLivro Y;
 	Pilha P;
-	//Fila F;
+//	Fila F;
 	Lista L;
 	ListaLivros LL;
-	//Cria(&F);
+//	Cria(&F);
 	cria_lista(&L);
 	do{
 	
@@ -45,10 +45,12 @@ int main(){
 		}while(opcao2==1);
 			imprimeListaLivros(&LL);  //remover esta funcao
 	  break;
-	  case 3: printf("Digite o nUsp do aluno: ");
+	  case 3: 
+	   	  printf("   >>> SISBIB - Retirar Livro <<<  \n\n"); 
+		  printf("Digite o nUsp do aluno: ");
 		  scanf("%s", nusp);
 		  printf("Digite o titulo do Livro: ");
-		  scanf("%s", titulo);
+		  scanf(" %[^\n]s",titulo);
 		  printf("Digite o exemplar: ");
 		  scanf("%d", &exemplar);
 		t=retiraLivro(&L,&LL,&nusp,&titulo,&exemplar);	
@@ -57,8 +59,9 @@ int main(){
 		if(t==1)
 			printf("Livro retirado com sucesso\n");	
 	  break;
-	  case 4: printf("Digite o titulo do Livro: ");
-                  scanf("%s", titulo);
+	  case 4: printf("   >>> SISBIB - Retornar Livro <<<  \n\n");
+		  printf("Digite o titulo do Livro: ");
+                  scanf(" %[^\n]s", titulo);
                   printf("Digite o exemplar: ");
                   scanf("%d", &exemplar);
                 t=devolveLivro(&L,&LL,&titulo,&exemplar);
@@ -68,7 +71,7 @@ int main(){
                         printf("Livro devolvido com sucesso\n"); 
 	  break;
 	  case 5:  printf("Digite o Titulo do Livro a ser removido: ");
-                   scanf("%s",titulo);
+                   scanf(" %[^\n]s",titulo);
 		  
 		   printf("Digite o numero do exemplar: ");
 		   scanf("%d",&exemplar);	
@@ -80,7 +83,7 @@ int main(){
                         printf("Livro removido com sucesso!\n");
           break;
 	  case 6: printf("Digite o nome do usuario a ser removido: ");
-		  scanf("%s",nome);
+		  scanf(" %[^\n]s",nome);
 		  
 		 t= removeAluno(&L,&nome);
 		if(t==0)
@@ -88,8 +91,10 @@ int main(){
 		if(t==1)
 			printf("Usuario removido com sucesso!\n");
 	  break;
-	  case 7: return 0;
+	  case 7: 
  	  break;
+	  case 8: return 0;
+	  break;
 	
 	default: printf("Opcao Invalida!");
 	break;

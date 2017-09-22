@@ -155,12 +155,12 @@ eleml buscaAluno(Lista *L, char *nusp){
 
 }
 
-elemLivro buscaLivro(ListaLivros *LL, char *titulo, char *exemplar){
+int buscaLivro(ListaLivros *LL, char *titulo, int *exemplar){
 
         int i = 0;
-        while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && strcmp(LL->dados[i].exemplar,exemplar) !=0)
+        while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && LL->dados[i].exemplar != exemplar)
                 i++;
 
-        return LL->dados[i];
+        return i;
 }
 

@@ -2,7 +2,7 @@
 #include<stdlib.h>
 
 #include "lista.h"
-
+#include "pilha.h"
 
 int menu();
 
@@ -18,6 +18,6 @@ int removeAluno(Lista*, char*);
 
 int removeLivro(ListaLivros*, char*,int*);
 
-int retiraLivro(Lista*, ListaLivros*, char*, char*,char*);
+int retiraLivro(Lista*, ListaLivros*, Pilha *P, char*, char*,int*);
 
-int devolveLivro(Lista*, ListaLivros*, char*, char*);
+int devolveLivro(Lista*, ListaLivros*, Pilha *P, char*, int*);

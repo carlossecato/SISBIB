@@ -21,7 +21,7 @@ typedef struct {
 
 typedef struct {
         char titulo[50];
-        char autor[10];
+        char autor[50];
         char ISBN[10];
         char editora[30];
 	int ano;
@@ -72,4 +72,4 @@ void imprimeListaLivro(ListaLivros*);
 
 eleml buscaAluno(Lista *,char*);
 
-elemLivro buscaLivro(ListaLivros *LL, char*, char*);
+int buscaLivro(ListaLivros *LL, char*, int*);

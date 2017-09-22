@@ -5,7 +5,14 @@
 
 
 
-typedef int elemp;
+typedef struct {
+        char nome[50];
+        char nusp[10];
+        char tel[10];
+        char email[30];
+	char mensagem[100];
+}elemp;
+
 
 typedef struct {
 		int topo;
