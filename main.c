@@ -1,10 +1,12 @@
+// Carlos Henrique de Carvalho Secato nUSP 9292890
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 
 
 #include "extra.h"
-#include "pilha.h"
+//#include "pilha.h"
 
 
 
@@ -53,7 +55,7 @@ int main(){
 		  scanf(" %[^\n]s",titulo);
 		  printf("Digite o exemplar: ");
 		  scanf("%d", &exemplar);
-		t=retiraLivro(&L,&LL,&nusp,&titulo,&exemplar);	
+		t=retiraLivro(&L,&LL,&P,&nusp,&titulo,&exemplar);	
 		if(t==0)
 			printf("Erro ao retirar Livro\n");
 		if(t==1)
@@ -64,7 +66,7 @@ int main(){
                   scanf(" %[^\n]s", titulo);
                   printf("Digite o exemplar: ");
                   scanf("%d", &exemplar);
-                t=devolveLivro(&L,&LL,&titulo,&exemplar);
+                t=devolveLivro(&L,&LL,&P,&titulo,&exemplar);
                 if(t==0)
                         printf("Erro ao devolver Livro\n");
                 if(t==1)
@@ -91,7 +93,7 @@ int main(){
 		if(t==1)
 			printf("Usuario removido com sucesso!\n");
 	  break;
-	  case 7: 
+	  case 7: imprime_pilha(&P); 
  	  break;
 	  case 8: return 0;
 	  break;

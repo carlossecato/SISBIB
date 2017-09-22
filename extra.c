@@ -1,3 +1,5 @@
+//Carlos Henrique de Carvalho Secato nUSP 9292890
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -90,8 +92,10 @@ int removeLivro(ListaLivros *LL, char *titulo, int *exemplar){
 }
 
 int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, int *exemplar){
-		
+	
+	char msg[100] = "Livro indisponivel, usuario inserido na fila espera";	
 	eleml X;
+	char aux[50] = "----------------------------------------";
 	elemLivro Y;
 	int i,erro;
 	
@@ -108,6 +112,10 @@ int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, i
 	
 	Entra(&LL->dados[i].F,&X,&erro);	
 	printf("%s",X.nome);
+	Push(P,aux);
+	Push(P,msg);
+	Push(P,X.nome);
+	
 }return 0;
 
 	
@@ -116,18 +124,36 @@ int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, i
 int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exemplar){
 	
 	eleml X;
+	elemp Y;
+	char aux[50] = "----------------------------------------";
 	int i,erro;
-	char msg[100] = "O livro está disponivel. E sua vez ";		
+	char msg[100] = "O livro está disponivel. ";		
 	 i = buscaLivro(LL,titulo,exemplar);
 	
 	if(LL->dados[i].disponivel == 0){
 	LL->dados[i].disponivel = 1;
 		if(!EstaVazia(&LL->dados[i].F)){
 		Sai(&LL->dados[i].F,&X,&erro);
-		P->mensagem = msg;
+//		printf("%s\n\n",X.nome);
+		Push(P,aux);
+		Push(P, msg);
 		Push(P,X.nome);
+		
 		}
 	return 1;
 	}else return 0;
 
+}
+
+void imprime_pilha(Pilha *P){
+	
+	elemp X;
+	printf("   >>> SISBIB - Mensagens do sistema <<<  \n\n");
+	while(!IsEmpty(P)){
+	Pop(P,&X.nome);
+	printf("%s \n",X.nome);
+	
+
+}
+	
 }

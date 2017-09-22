@@ -1,3 +1,5 @@
+//Carlos Henrique de Carvalho Secato nUSP 9292890
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -21,3 +23,5 @@ int removeLivro(ListaLivros*, char*,int*);
 int retiraLivro(Lista*, ListaLivros*, Pilha *P, char*, char*,int*);
 
 int devolveLivro(Lista*, ListaLivros*, Pilha *P, char*, int*);
+
+void imprime_pilha(Pilha*);

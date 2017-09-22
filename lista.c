@@ -1,3 +1,5 @@
+//Carlos Henrique de Carvalho Secato nUSP 9292890
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
