@@ -3,8 +3,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#include "lista.h"
-#include "pilha.h"
+#include "lista_dim.h"
+#include "pilha_dim.h"
 
 int menu();
 

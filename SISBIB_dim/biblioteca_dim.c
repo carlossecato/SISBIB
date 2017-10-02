@@ -4,9 +4,9 @@
 #include<stdlib.h>
 #include<string.h>
 
-#include "lista.h"
+#include "lista_dim.h"
 //#include "fila.h"
-#include "pilha.h"
+#include "pilha_dim.h"
 
 int  menu(){
 
@@ -32,7 +32,6 @@ int  menu(){
 char maiuscula(char *nome){
 	int tam,i;
 	tam = strlen(nome);
-	printf("%d\n",tam);
 	for(i=0;i<tam;i++){
  	nome[i] = toupper(nome[i]);
 	}
@@ -109,27 +108,27 @@ int removeLivro(ListaLivros *LL, char *titulo, int *exemplar){
 int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, int *exemplar){
 	
 	char msg[100] = "Livro indisponivel, usuario inserido na fila espera";	
-	eleml X;
+	noLista *X;
 	char aux[50] = "----------------------------------------";
-	elemLivro Y;
+	noLivro *Y;
 	int i,erro;
 	
 	X = buscaAluno(L,nusp);
-	i = buscaLivro(LL,titulo,exemplar);
+	Y = buscaLivro(LL,titulo,exemplar);
 	
 	
-	if(LL->dados[i].disponivel != 0){
-	LL->dados[i].disponivel = 0;
+	if(Y->info.disponivel != 0){
+	Y->info.disponivel = 0;
 	// inserir mensagem de sucesso	
 	
 	return 1;
 	}else{
 	
-	Entra(&LL->dados[i].F,&X,&erro);	
-	printf("%s",X.nome);
+	Entra(&Y->info.F,&X,&erro);	
+	printf("%s",X->info.nome);
 	Push(P,aux);
 	Push(P,msg);
-	Push(P,X.nome);
+	Push(P,X->info.nome);
 	
 }return 0;
 
@@ -138,21 +137,21 @@ int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, i
 
 int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exemplar){
 	
-	eleml X;
-	elemp Y;
+	noLista *X;
+	noLivro *Y;
 	char aux[50] = "----------------------------------------";
 	int i,erro;
 	char msg[100] = "O livro está disponivel. ";		
-	 i = buscaLivro(LL,titulo,exemplar);
+	 Y = buscaLivro(LL,titulo,exemplar);
 	
-	if(LL->dados[i].disponivel == 0){
-	LL->dados[i].disponivel = 1;
-		if(!EstaVazia(&LL->dados[i].F)){
-		Sai(&LL->dados[i].F,&X,&erro);
+	if(Y->info.disponivel == 0){
+	Y->info.disponivel = 1;
+		if(!EstaVazia(&Y->info.F)){
+		Sai(&Y->info.F,&X,&erro);
 //		printf("%s\n\n",X.nome);
 		Push(P,aux);
 		Push(P, msg);
-		Push(P,X.nome);
+		Push(P,X->info.nome);
 		
 		}
 	return 1;

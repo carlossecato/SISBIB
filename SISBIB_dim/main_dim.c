@@ -5,7 +5,7 @@
 #include<string.h>
 
 
-#include "extra.h"
+#include "biblioteca_dim.h"
 //#include "pilha.h"
 
 
@@ -23,6 +23,7 @@ int main(){
 	ListaLivros LL;
 //	Cria(&F);
 	cria_lista(&L);
+	cria_livros(&LL);
 	do{
 	
 	op=menu();
@@ -76,7 +77,7 @@ int main(){
 	  break;
 	  case 5:  printf("Digite o Titulo do Livro a ser removido: ");
                    scanf(" %[^\n]s",titulo);
-		  
+		   maiuscula(titulo);
 		   printf("Digite o numero do exemplar: ");
 		   scanf("%d",&exemplar);	
 		  
@@ -88,7 +89,7 @@ int main(){
           break;
 	  case 6: printf("Digite o nome do usuario a ser removido: ");
 		  scanf(" %[^\n]s",nome);
-		  
+		  maiuscula(nome);
 		 t= removeAluno(&L,&nome);
 		if(t==0)
 			printf("Erro ao remover\n");
