@@ -85,6 +85,7 @@ elemLivro EntraDadosLivros(ListaLivros *LL){
                 printf("Exemplar: "); scanf("%d", &A.exemplar);  
                 printf("Edicao: "); scanf("%s", A.edicao);
 		A.disponivel = 1;
+		Cria(&A.F);
                 return A;
         } else printf("Erro ao cadastrar");
 
@@ -112,26 +113,29 @@ int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, i
 	char aux[50] = "----------------------------------------";
 	noLivro *Y;
 	int i,erro;
-	
+
 	X = buscaAluno(L,nusp);
 	Y = buscaLivro(LL,titulo,exemplar);
 	
-	
-	if(Y->info.disponivel != 0){
+	if(Y == NULL || X == NULL){
+		printf("Livro ou usuário inexistente. Tente novamente\n");
+	}
+	else{
+	 if(Y->info.disponivel != 0){
 	Y->info.disponivel = 0;
 	// inserir mensagem de sucesso	
 	
 	return 1;
 	}else{
-	
 	Entra(&Y->info.F,&X,&erro);	
 	printf("%s",X->info.nome);
 	Push(P,aux);
 	Push(P,msg);
 	Push(P,X->info.nome);
 	
-}return 0;
-
+}
+}
+	return 0;
 	
 }
 
@@ -141,33 +145,33 @@ int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exempla
 	noLivro *Y;
 	char aux[50] = "----------------------------------------";
 	int i,erro;
-	char msg[100] = "O livro está disponivel. ";		
+	char msg[100] = "O livro esta disponivel ";		
+
 	 Y = buscaLivro(LL,titulo,exemplar);
 	
 	if(Y->info.disponivel == 0){
 	Y->info.disponivel = 1;
 		if(!EstaVazia(&Y->info.F)){
 		Sai(&Y->info.F,&X,&erro);
-//		printf("%s\n\n",X.nome);
+		printf("%s\n\n",X->info.nome);
 		Push(P,aux);
 		Push(P, msg);
 		Push(P,X->info.nome);
-		
+		Push(P,Y->info.titulo);
 		}
 	return 1;
 	}else return 0;
 
 }
 
-void imprime_pilha(Pilha *P){
+int imprime_pilha(Pilha *P){
 	
-	elemp X;
+	noPilha X;
 	printf("   >>> SISBIB - Mensagens do sistema <<<  \n\n");
 	while(!IsEmpty(P)){
-	Pop(P,&X.nome);
-	printf("%s \n",X.nome);
+		Pop(P,&X);
+		printf("%s \n",X.info.nome);
 	
-
 }
 	
 }

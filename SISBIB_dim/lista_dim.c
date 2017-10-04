@@ -220,9 +220,11 @@ noLista *buscaAluno(Lista *L, char *nusp){
 	noLista *p;
 	
         p = L->inicio;
-        while(p != NULL && strcmp(p->info.nusp, nusp)!=0)
+        while(p != NULL && strcmp(p->info.nusp, nusp)!=0){
                p = p->prox;
-
+		if(p == NULL)
+			return NULL;
+	}
         return p;
 
 }
@@ -231,9 +233,11 @@ noLivro *buscaLivro(ListaLivros *LL, char *titulo, int *exemplar){
 	noLivro *p;
 	
         p = LL->inicio;
-        while(p != NULL && strcmp(p->info.titulo, titulo)!=0 && p->info.exemplar != *exemplar)
+        while(p != NULL && strcmp(p->info.titulo, titulo)!=0 && p->info.exemplar != exemplar){
            p = p->prox;
-
+		if(p == NULL)
+		return NULL;
+	}
         return p;
 }
 

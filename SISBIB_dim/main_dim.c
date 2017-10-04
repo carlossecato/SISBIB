@@ -22,6 +22,7 @@ int main(){
 	Lista L;
 	ListaLivros LL;
 //	Cria(&F);
+	Create(&P);
 	cria_lista(&L);
 	cria_livros(&LL);
 	do{

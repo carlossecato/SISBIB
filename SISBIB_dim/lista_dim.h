@@ -4,9 +4,6 @@
 #include<stdlib.h>
 #include "fila_dim.h"
 
-#define TamLista 100
-#define TamListaLivro 100
-
 typedef struct {
         char nome[50];
         char nusp[10];

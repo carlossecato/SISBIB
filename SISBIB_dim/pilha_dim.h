@@ -17,7 +17,7 @@ typedef struct bloco2{
 }noPilha;
 
 typedef struct pilha {
-	noPilha* topo;
+	noPilha  *topo;
 
 }Pilha;
 

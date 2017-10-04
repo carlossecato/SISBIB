@@ -26,4 +26,4 @@ int retiraLivro(Lista*, ListaLivros*, Pilha *P, char*, char*,int*);
 
 int devolveLivro(Lista*, ListaLivros*, Pilha *P, char*, int*);
 
-void imprime_pilha(Pilha*);
+int imprime_pilha(Pilha*);
