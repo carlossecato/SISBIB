@@ -106,6 +106,70 @@ int removeLivro(ListaLivros *LL, char *titulo, int *exemplar){
 
 }
 
+void imprime_lista(Lista* L){
+	if(L == NULL)
+		return;
+	noLista *p;
+	p = L->inicio;
+
+	while(p != NULL){
+		printf("Nome: %s\n",p->info.nome);
+		printf("NUsp: %s\n",p->info.nusp);
+		printf("Tel: %s\n",p->info.tel);
+		printf("Email: %s\n",p->info.email);
+
+		printf("-------------------------------\n");
+	p = p->prox;
+	}
+}
+
+void imprimeListaLivros(ListaLivros *LL){
+//	if(LL == NULL)
+  //              return;
+        noLivro *p;
+
+	p = LL->inicio;
+
+        while(p != NULL){
+                printf("Titulo: %s\n",p->info.titulo);
+                printf("Autor: %s\n",p->info.autor);
+                printf("ISBN: %s\n",p->info.ISBN);
+                printf("Editora: %s\n",p->info.editora);
+                printf("Ano: %d\n",p->info.ano);
+                printf("Exemplar: %d\n",p->info.exemplar);
+                printf("Edicao: %s\n",p->info.edicao);
+
+                printf("-------------------------------\n");
+        p = p->prox;
+	}
+}
+
+noLista *buscaAluno(Lista *L, char *nusp){
+	noLista *p;
+	
+        p = L->inicio;
+        while(p != NULL && strcmp(p->info.nusp, nusp)!=0){
+               p = p->prox;
+		if(p == NULL)
+			return NULL;
+	}
+        return p;
+
+}
+
+noLivro *buscaLivro(ListaLivros *LL, char *titulo, int *exemplar){
+	noLivro *p;
+	
+        p = LL->inicio;
+        while(p != NULL && strcmp(p->info.titulo, titulo)!=0 && p->info.exemplar != exemplar){
+           p = p->prox;
+		if(p == NULL)
+		return NULL;
+	}
+        return p;
+}
+
+
 int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, int *exemplar){
 	
 	char msg[100] = "Livro indisponivel, usuario inserido na fila espera";	
@@ -143,35 +207,46 @@ int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exempla
 	
 	noLista *X;
 	noLivro *Y;
-	char aux[50] = "----------------------------------------";
+	char aux[50] =  "----------------------------------------";
 	int i,erro;
-	char msg[100] = "O livro esta disponivel ";		
-
-	 Y = buscaLivro(LL,titulo,exemplar);
+	char msgDev[100] = "O livro esta disponivel";			
 	
+	 Y = buscaLivro(LL,titulo,exemplar);
+
+	 if(Y == NULL){
+                printf("Livro inexistente. Tente novamente\n");
+        }
+	else{
 	if(Y->info.disponivel == 0){
 	Y->info.disponivel = 1;
 		if(!EstaVazia(&Y->info.F)){
 		Sai(&Y->info.F,&X,&erro);
 		printf("%s\n\n",X->info.nome);
 		Push(P,aux);
-		Push(P, msg);
+		Push(P,msgDev);
 		Push(P,X->info.nome);
+		Push(P,X->info.nusp);
 		Push(P,Y->info.titulo);
 		}
 	return 1;
 	}else return 0;
-
+}
+	return 0;
 }
 
 int imprime_pilha(Pilha *P){
-	
-	noPilha X;
+	noPilha *X;
+
 	printf("   >>> SISBIB - Mensagens do sistema <<<  \n\n");
-	while(!IsEmpty(P)){
-		Pop(P,&X);
-		printf("%s \n",X.info.nome);
 	
-}
+	X = P->topo;
 	
+	if(X == NULL)
+	printf("Nenhuma mensagem...\n");
+	else{
+	while(X != NULL){
+		printf("%s \n",X->info.nome);
+		X = X->prox;
+		}
+	}
 }

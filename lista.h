@@ -68,10 +68,4 @@ int listaLivro_cheia(ListaLivros *LL);
 
 int lista_vazia(Lista* L);
 
-void imprime_lista(Lista* L);
 
-void imprimeListaLivro(ListaLivros*);
-
-eleml buscaAluno(Lista *,char*);
-
-int buscaLivro(ListaLivros *LL, char*, int*);

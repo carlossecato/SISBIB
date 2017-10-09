@@ -22,6 +22,14 @@ int removeAluno(Lista*, char*);
 
 int removeLivro(ListaLivros*, char*,int*);
 
+void imprime_lista(Lista* L);
+
+void imprimeListaLivro(ListaLivros*);
+
+eleml buscaAluno(Lista *,char*);
+
+int buscaLivro(ListaLivros *LL, char*, int*);
+
 int retiraLivro(Lista*, ListaLivros*, Pilha *P, char*, char*,int*);
 
 int devolveLivro(Lista*, ListaLivros*, Pilha *P, char*, int*);

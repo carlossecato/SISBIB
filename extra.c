@@ -32,7 +32,6 @@ int  menu(){
 char maiuscula(char *nome){
 	int tam,i;
 	tam = strlen(nome);
-	printf("%d\n",tam);
 	for(i=0;i<tam;i++){
  	nome[i] = toupper(nome[i]);
 	}
@@ -106,6 +105,59 @@ int removeLivro(ListaLivros *LL, char *titulo, int *exemplar){
 
 }
 
+void imprime_lista(Lista* L){
+	if(L == NULL)
+		return;
+	int i;
+
+	for(i=0; i< L->qtd; i++){
+		printf("Nome: %s\n",L->dados[i].nome);
+		printf("NUsp: %s\n",L->dados[i].nusp);
+		printf("Tel: %s\n",L->dados[i].tel);
+		printf("Email: %s\n",L->dados[i].email);
+
+		printf("-------------------------------\n");
+	}
+}
+
+void imprimeListaLivros(ListaLivros *LL){
+	if(LL == NULL)
+                return;
+        int i;
+
+        for(i=0; i< LL->qtd; i++){
+                printf("Titulo: %s\n",LL->dados[i].titulo);
+                printf("Autor: %s\n",LL->dados[i].autor);
+                printf("ISBN: %s\n",LL->dados[i].ISBN);
+                printf("Editora: %s\n",LL->dados[i].editora);
+                printf("Ano: %d\n",LL->dados[i].ano);
+                printf("Exemplar: %d\n",LL->dados[i].exemplar);
+                printf("Edicao: %s\n",LL->dados[i].edicao);
+
+                printf("-------------------------------\n");
+        }
+}
+
+eleml buscaAluno(Lista *L, char *nusp){
+
+        int i = 0;
+        while(i<L->qtd && strcmp(L->dados[i].nusp, nusp)!=0)
+                i++;
+
+        return L->dados[i];
+
+}
+
+int buscaLivro(ListaLivros *LL, char *titulo, int *exemplar){
+
+        int i = 0;
+        while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && LL->dados[i].exemplar != exemplar)
+                i++;
+
+        return i;
+}
+
+
 int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, int *exemplar){
 	
 	char msg[100] = "Livro indisponivel, usuario inserido na fila espera";	
@@ -161,14 +213,18 @@ int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exempla
 }
 
 void imprime_pilha(Pilha *P){
-	
-	elemp X;
-	printf("   >>> SISBIB - Mensagens do sistema <<<  \n\n");
-	while(!IsEmpty(P)){
-	Pop(P,&X.nome);
-	printf("%s \n",X.nome);
+	int i;	
 	
 
-}
+	printf("   >>> SISBIB - Mensagens do sistema <<<  \n\n");
+	
+	if(IsEmpty(P))
+	printf("Nenhuma mensagem....\n");
+	else{
+	for(i = P->topo; i>=0; i--){
+	printf("%s \n",P->itens[i].nome);
+	
+	}
+	}
 	
 }
