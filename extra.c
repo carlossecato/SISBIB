@@ -1,13 +1,21 @@
+//Trabalho 1 - Disciplina: Algoritmos e Estrutura de Dados
+//Data: 15/10/2017
+//Alberice Lucas de Araújo nUSP 7986563
 //Carlos Henrique de Carvalho Secato nUSP 9292890
+
 #include<ctype.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 
+#define MaxNome 50
+#define MaxTitulo 50
+
 #include "lista.h"
 //#include "fila.h"
 #include "pilha.h"
 
+//menu principal da aplicação, o usuario escolhe a opçao que será acessada pelo sistema.
 int  menu(){
 
 	int opcao;	
@@ -29,6 +37,7 @@ int  menu(){
 	return opcao;
 }
 
+//funcao para tranformar qualquer entrada de string, visando a padronizacao evitando erros de busca
 char maiuscula(char *nome){
 	int tam,i;
 	tam = strlen(nome);
@@ -39,6 +48,18 @@ char maiuscula(char *nome){
 	return nome;
 }
 
+
+//funcao que compara o tamanho maximo da variavel nome com o tamanho inserido pelo usuari, retorna 0 quando eh maior que o permitido, 1 quando esta dentro do aceitavel
+int verificaNome(char *nome){
+        int tam;
+        tam = strlen(nome);
+        if(tam > MaxNome){
+        return 0;
+        }
+        else return 1;
+}
+
+//funcao para realizar a entrada dos dados dos alunos, o usuario deve entrar com as informacoes pertinentes e a funcao retorna um elemento aluno
 eleml EntraDados(Lista *L){
 	int op,tam;
 	eleml A;
@@ -48,26 +69,48 @@ eleml EntraDados(Lista *L){
 		printf("   >>> SISBIB - Cadastro Aluno <<<  \n\n");
 		printf("Nome: "); scanf(" %[^\n]s", A.nome); 	
 	        maiuscula(A.nome);
+		if(verificaNome(A.nome) != 0){
 		printf("Num USP: "); scanf("%s", A.nusp);
 		printf("Telefone: "); scanf("%s", A.tel);
 		printf("Email: "); scanf("%s", A.email);
 		return A;
-	} else printf("Erro ao cadastrar");
+	} else {
+		printf("Erro ao cadastrar: nome excede limite\n");
+		strcpy(A.nome,"erro");
+		return A;
+		}
+	}else printf("Erro ao cadastrar: Lista cheia\n");
 }
 
+//funcao que recebe o elemento aluno e atraves do TAD insere essa informacao na lista de alunos, retorna sucesso ou erro ao cadastrar
 int Cadastra(Lista *L, eleml *X){
 
-	
+	if(strcmp(X->nome,"erro")==0)
+	return 0;
+	else{
 	insere_lista(L,X);
-	
+	}
 
 }
 
+//funcao que recebe a lista de alunos e um nome, que será buscado na lista e removido, retorna sucesso ou erro ao remover
 int removeAluno(Lista *L, char *nome){
 	
 	remove_lista(L,nome);
 }
 
+
+//funcao que compara o tamanho maximo da variavel titulo com o tamanho inserido pelo usuario, retorna 0 quando eh maior que o permitido, 1 quando esta dentro do aceitavel
+int verificaTitulo(char *titulo){
+        int tam;
+        tam = strlen(titulo);
+        if(tam > MaxTitulo)
+        return 0;
+        else return 1;
+}
+
+
+//funcao para realizar a entrada dos dados dos livros, o usuario deve entrar com as informacoes pertinentes e a funcao retorna um elemento livro
 elemLivro EntraDadosLivros(ListaLivros *LL){
 	 int op;
         elemLivro A;
@@ -76,6 +119,7 @@ elemLivro EntraDadosLivros(ListaLivros *LL){
 		printf("   >>> SISBIB - Cadastro Livro <<<  \n\n");
 		printf("Titulo: "); scanf(" %[^\n]s", A.titulo);
 		maiuscula(A.titulo);
+		if(verificaTitulo(A.titulo) != 0){
                 printf("Autor: "); scanf(" %[^\n]s", A.autor);
 		maiuscula(A.autor);
                 printf("ISBN: "); scanf("%s", A.ISBN);
@@ -86,25 +130,34 @@ elemLivro EntraDadosLivros(ListaLivros *LL){
                 printf("Edicao: "); scanf("%s", A.edicao);
 		A.disponivel = 1;
                 return A;
-        } else printf("Erro ao cadastrar");
-
+        } else{
+		 printf("Erro ao cadastrar: titulo excede limite\n");
+		 strcpy(A.titulo,"erro");
+		 return A;
+		}
+	}else printf("Erro ao cadastrar: Lista cheia \n");
 }
 
+//funcao que recebe o elemento livro e atraves do TAD insere essa informacao na lista de livro, retorna sucesso ou erro ao cadastrar
 int CadastraLivro(ListaLivros *LL, elemLivro *Y, int *erro){
 	
-
+	if(strcmp(Y->titulo,"erro")==0)
+	return 0;
+	else{
 	insereListaLivros(LL,Y);
-
+	}
 	
 
 }
 
+//funcao que recebe a lista de livros, um titulo e o exemplar, que será buscado na lista e removido, retorna sucesso ou erro ao remover
 int removeLivro(ListaLivros *LL, char *titulo, int *exemplar){
 	
 	removeListaLivro(LL,titulo,exemplar);
 
 }
 
+//funcao para a impressao da lista de aluno
 void imprime_lista(Lista* L){
 	if(L == NULL)
 		return;
@@ -120,6 +173,7 @@ void imprime_lista(Lista* L){
 	}
 }
 
+//funcao para impressao da lista de livros
 void imprimeListaLivros(ListaLivros *LL){
 	if(LL == NULL)
                 return;
@@ -138,6 +192,8 @@ void imprimeListaLivros(ListaLivros *LL){
         }
 }
 
+
+//funcao de busca que varre a lista de alunos em busca de um nome fornecido pelo usuario, retorna o elemento aluno do nome buscado
 eleml buscaAluno(Lista *L, char *nusp){
 
         int i = 0;
@@ -148,6 +204,8 @@ eleml buscaAluno(Lista *L, char *nusp){
 
 }
 
+
+//funcao de busca que varre a lista de livros em busca do titulo e do exemplar fornecido pelo usuario, retorna a posicao do livro buscado
 int buscaLivro(ListaLivros *LL, char *titulo, int *exemplar){
 
         int i = 0;
@@ -158,6 +216,8 @@ int buscaLivro(ListaLivros *LL, char *titulo, int *exemplar){
 }
 
 
+
+//funcao que retira o livro tornando-o indisponivel para novos emprestimos, busca na lista de alunos e livros, nusp e qual o titulo e exemplar desejado, marca como indisponivel caso as buscas forem sucesso e o emprestimo é realizado. Caso o livro ja esteja indisponivel o usuario é colocado em uma fila de espera desse livro pelo nome e uma notificacao eh enviada na forma de mensagem que eh armazenada em uma pilha 
 int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, int *exemplar){
 	
 	char msg[100] = "Livro indisponivel, usuario inserido na fila espera";	
@@ -188,6 +248,8 @@ int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, i
 	
 }
 
+
+//funcao que devolve o livro tornando disponivel. O usuario informa titulo e exemplar e a partir de uma busca o livro é colocado como disponivel. Caso a fila esteja diferente de zero, a funcao tira um nome da fila, e esse nome eh notificado com uma mensagem armazenada em uma pilha
 int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exemplar){
 	
 	eleml X;
@@ -212,6 +274,8 @@ int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exempla
 
 }
 
+
+//funcao que imprime todas as mensagens do sistema, ela recebe a pilha de mensagens e imprime todo seu conteudo para o usuario
 void imprime_pilha(Pilha *P){
 	int i;	
 	

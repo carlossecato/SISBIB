@@ -1,3 +1,6 @@
+//Trabalho 1 - Disciplina: Algoritmos e Estrutura de Dados
+//Data: 15/10/2017
+//Alberice Lucas de Araújo nUSP 7986563
 //Carlos Henrique de Carvalho Secato nUSP 9292890
 
 #include <stdio.h> 
@@ -6,7 +9,6 @@
 #include "pilha.h"
 
 // Cria uma pilha P
-
 void Create(Pilha *p){
 	p->topo = -1;
 	return;
