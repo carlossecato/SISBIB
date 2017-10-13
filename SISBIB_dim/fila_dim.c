@@ -26,7 +26,7 @@ void Esvazia(Fila *F) {
 int EstaVazia(Fila *F) {
 	if(F->inicio == NULL)
 		return 1;
-		else return 0;
+	else return 0;
 }
 
 
@@ -37,10 +37,10 @@ int EstaCheia(Fila *F) {
 	p=(no*)malloc(sizeof(no));
 	if(p==NULL)
 		return 1;
-		else {
-			free(p);
-			return 0;
-		}
+	else {
+		free(p);
+		return 0;
+	}
 }
 
 
@@ -51,33 +51,33 @@ void Entra(Fila *F, elem *X, int *erro) {
 	p = (no*)malloc(sizeof(no));
 	if(p==NULL)
 		*erro = 1;
-		else {
-			*erro = 0;
-			p->info = *X;
-			p->prox = NULL;
-			if(F->inicio == NULL)
-				F->inicio = p;
-				else F->fim->prox = p;
-			F->fim = p;	
-		}
+	else {
+		*erro = 0;
+		p->info = *X;
+		p->prox = NULL;
+		if(F->inicio == NULL)
+			F->inicio = p;
+		else F->fim->prox = p;
+		F->fim = p;	
+	}
 }
 
 
 //Remove o elemento X da fila F. Retorna erro 0 se não houver erro, Retorna erro 1 se algum erro acontecer
 void Sai(Fila *F, elem *X, int *erro) {
 	no *p;
-	
+
 	if(EstaVazia(F))
 		*erro = 1;
-		else {
-			*erro = 0;
-			*X = F->inicio->info;
-			p = F->inicio;
-			F->inicio = F->inicio->prox;
-			if(F->inicio == NULL)
-				F->fim=NULL;
-			free(p);
-		}	
+	else {
+		*erro = 0;
+		*X = F->inicio->info;
+		p = F->inicio;
+		F->inicio = F->inicio->prox;
+		if(F->inicio == NULL)
+			F->fim=NULL;
+		free(p);
+	}	
 }
 
 

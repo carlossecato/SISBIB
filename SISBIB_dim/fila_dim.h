@@ -17,8 +17,8 @@ typedef struct {
 }elem;
 
 typedef struct bloco {
-			struct bloco *prox;
-			elem info;
+	struct bloco *prox;
+	elem info;
 }no;
 
 typedef struct{
@@ -44,9 +44,9 @@ elem cadastra(Fila*);
 
 //outras operações mais sofisticadas
 /*
-int Crescente(Fila*);
+   int Crescente(Fila*);
 
-elem Primeiro(Fila*, int*);
+   elem Primeiro(Fila*, int*);
 
-void Unir(Fila*, Fila*, Fila*, int*);
-*/
+   void Unir(Fila*, Fila*, Fila*, int*);
+ */

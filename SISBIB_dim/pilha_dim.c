@@ -20,39 +20,39 @@ void Create(Pilha *P){
 int Push(Pilha* P, elemp *X){
 	noPilha *pont;
 
-		  
+
 	pont = (noPilha*)malloc(sizeof(noPilha));
 	if(pont==NULL)
 		return 1;
-		else {
-			pont->info = *X;
-			pont->prox = P->topo;
-			P->topo = pont;
-			return 0;			
-		}
+	else {
+		pont->info = *X;
+		pont->prox = P->topo;
+		P->topo = pont;
+		return 0;			
+	}
 }
 
 
 //Remove o elemento X da pilha P. Retorna 0 se não houver erro, Retorna 1 se algum erro acontecer
 int Pop(Pilha *P, elemp *X){
 	noPilha *pont;
-	
+
 	if(IsEmpty(P))
 		return 1;
-		else {
-			
-			*X = P->topo->info;
-			pont = P->topo;
-			P->topo = P->topo->prox;
-			free(pont);
-			return 0;
-		}
+	else {
+
+		*X = P->topo->info;
+		pont = P->topo;
+		P->topo = P->topo->prox;
+		free(pont);
+		return 0;
+	}
 }
 
 
 //Retorn a 1 se a pilha estiver cheia, 0 se a pilha tiver conteudo ou vazia
 int IsFull(Pilha* P){
-    return 0;
+	return 0;
 }
 
 
@@ -60,7 +60,7 @@ int IsFull(Pilha* P){
 int IsEmpty(Pilha *P){
 	if(P->topo == NULL)
 		return 1;
-		else return 0;
+	else return 0;
 }
 
 

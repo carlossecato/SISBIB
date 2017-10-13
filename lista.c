@@ -42,22 +42,22 @@ int consulta_lista_pos(Lista* L, int pos, eleml *X){
 int insere_lista(Lista* L, eleml *X){
 
 	if(L == NULL)
-        return 0;
-    if(L->qtd == TamLista)//lista cheia
-        return 0;
-    L->dados[L->qtd] = *X;
-    L->qtd++;
-    return 1;
+		return 0;
+	if(L->qtd == TamLista)//lista cheia
+		return 0;
+	L->dados[L->qtd] = *X;
+	L->qtd++;
+	return 1;
 }
 //insere o elemento livro na lista LL. Retorna 0 se erro, 1 se insercao correta
 int insereListaLivros(ListaLivros *LL, elemLivro *X){
 	if(LL == NULL)
-        return 0;
-    if(LL->qtd == TamListaLivro)//lista cheia
-        return 0;
-    LL->dados[LL->qtd] = *X;
-    LL->qtd++;
-    return 1;
+		return 0;
+	if(LL->qtd == TamListaLivro)//lista cheia
+		return 0;
+	LL->dados[LL->qtd] = *X;
+	LL->qtd++;
+	return 1;
 }
 
 //remove o elemento aluno buscado pelo nome, e sobreescreve a posicao dele alterando todas as posicoes do vetor a partir do buscado
@@ -82,20 +82,20 @@ int remove_lista(Lista* L, char *nome){
 //remove o elemento livro buscado pelo titulo e exemplar, e sobreescreve a posicao dele alterando todas as posicoes do vetor a apartir do buscado
 int removeListaLivro(ListaLivros *LL, char *titulo, int *exemplar){
 	if(LL == NULL)
-                return 0;
-        if(LL->qtd == 0)
-                return 0;
+		return 0;
+	if(LL->qtd == 0)
+		return 0;
 
-        int k,i = 0;
-        while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && strcmp(LL->dados[i].exemplar,exemplar) !=0)
-                i++;
-        if(i == LL->qtd)//elemento nao encontrado
-                return 0;
+	int k,i = 0;
+	while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && strcmp(LL->dados[i].exemplar,exemplar) !=0)
+		i++;
+	if(i == LL->qtd)//elemento nao encontrado
+		return 0;
 
-        for(k=i; k< LL->qtd-1; k++)
-                LL->dados[k] = LL->dados[k+1];
-        LL->qtd--;
-        return 1;
+	for(k=i; k< LL->qtd-1; k++)
+		LL->dados[k] = LL->dados[k+1];
+	LL->qtd--;
+	return 1;
 }
 
 //retorna o tamanho da lista de alunos
@@ -116,7 +116,7 @@ int lista_cheia(Lista* L){
 //retorna se a lista de livros esta cheia ou nao
 int listaLivro_cheia(ListaLivros *LL){
 	if(LL == NULL)
-	return -1;
+		return -1;
 	return(LL->qtd == TamListaLivro);
 }
 

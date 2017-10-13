@@ -11,10 +11,10 @@
 #define TamListaLivro 100
 
 typedef struct {
-        char nome[50];
-        char nusp[10];
-        char tel[10];
-        char email[30];
+	char nome[50];
+	char nusp[10];
+	char tel[10];
+	char email[30];
 }eleml;
 
 
@@ -25,10 +25,10 @@ typedef struct {
 }Lista;
 
 typedef struct {
-        char titulo[50];
-        char autor[50];
-        char ISBN[10];
-        char editora[30];
+	char titulo[50];
+	char autor[50];
+	char ISBN[10];
+	char editora[30];
 	int ano;
 	int exemplar;
 	char edicao[10];
@@ -37,8 +37,8 @@ typedef struct {
 }elemLivro;
 
 typedef struct {
-        int qtd;
-        elemLivro dados[TamListaLivro];
+	int qtd;
+	elemLivro dados[TamListaLivro];
 }ListaLivros;
 
 
