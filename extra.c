@@ -199,7 +199,6 @@ eleml buscaAluno(Lista *L, char *nusp){
 	int i = 0;
 	while(i<L->qtd && strcmp(L->dados[i].nusp, nusp)!=0)
 		i++;
-
 	return L->dados[i];
 
 }
@@ -229,21 +228,25 @@ int retiraLivro(Lista *L, ListaLivros *LL, Pilha *P, char *nusp, char *titulo, i
 	X = buscaAluno(L,nusp);
 	i = buscaLivro(LL,titulo,exemplar);
 
-
-	if(LL->dados[i].disponivel != 0){
-		LL->dados[i].disponivel = 0;
-		// inserir mensagem de sucesso	
-
-		return 1;
+	if(i==LL->qtd){
+		printf("Livro inexistente. Tente novamente \n");
 	}else{
+		if(LL->dados[i].disponivel != 0){
+			LL->dados[i].disponivel = 0;
+			// inserir mensagem de sucesso	
 
-		Entra(&LL->dados[i].F,&X,&erro);	
-		printf("%s",X.nome);
-		Push(P,aux);
-		Push(P,msg);
-		Push(P,X.nome);
+			return 1;
+		}else{
 
-	}return 0;
+			Entra(&LL->dados[i].F,&X,&erro);	
+			printf("%s",X.nome);
+			Push(P,aux);
+			Push(P,msg);
+			Push(P,X.nome);
+
+		}
+	}
+	return 0;
 
 
 }
@@ -256,22 +259,29 @@ int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exempla
 	elemp Y;
 	char aux[50] = "----------------------------------------";
 	int i,erro;
-	char msg[100] = "O livro está disponivel. ";		
+	char msg[100] = "O livro ";
+	char msg1[100] = "está disponivel. ";		
+
+
 	i = buscaLivro(LL,titulo,exemplar);
+	if(i == LL->qtd){
+		printf("Livro inexistente. Tente novamente \n");
+	}else{
+		if(LL->dados[i].disponivel == 0){
+			LL->dados[i].disponivel = 1;
+			if(!EstaVazia(&LL->dados[i].F)){
+				Sai(&LL->dados[i].F,&X,&erro);
+				
+				Push(P,aux);
+				Push(P, msg1);
+				Push(P,LL->dados[i].titulo);
+				Push(P, msg);
+				Push(P,X.nome);
 
-	if(LL->dados[i].disponivel == 0){
-		LL->dados[i].disponivel = 1;
-		if(!EstaVazia(&LL->dados[i].F)){
-			Sai(&LL->dados[i].F,&X,&erro);
-			//		printf("%s\n\n",X.nome);
-			Push(P,aux);
-			Push(P, msg);
-			Push(P,X.nome);
-
-		}
-		return 1;
-	}else return 0;
-
+			}
+			return 1;
+		}else return 0;
+	}
 }
 
 

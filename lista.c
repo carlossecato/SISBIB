@@ -55,9 +55,12 @@ int insereListaLivros(ListaLivros *LL, elemLivro *X){
 		return 0;
 	if(LL->qtd == TamListaLivro)//lista cheia
 		return 0;
+
 	LL->dados[LL->qtd] = *X;
 	LL->qtd++;
 	return 1;
+
+
 }
 
 //remove o elemento aluno buscado pelo nome, e sobreescreve a posicao dele alterando todas as posicoes do vetor a partir do buscado
@@ -72,7 +75,6 @@ int remove_lista(Lista* L, char *nome){
 		i++;
 	if(i == L->qtd)//elemento nao encontrado
 		return 0;
-
 	for(k=i; k< L->qtd-1; k++)
 		L->dados[k] = L->dados[k+1];
 	L->qtd--;
@@ -87,7 +89,7 @@ int removeListaLivro(ListaLivros *LL, char *titulo, int *exemplar){
 		return 0;
 
 	int k,i = 0;
-	while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0 && strcmp(LL->dados[i].exemplar,exemplar) !=0)
+	while(i<LL->qtd && strcmp(LL->dados[i].titulo, titulo)!=0)// && LL->dados[i].exemplar != *exemplar)
 		i++;
 	if(i == LL->qtd)//elemento nao encontrado
 		return 0;
@@ -96,6 +98,7 @@ int removeListaLivro(ListaLivros *LL, char *titulo, int *exemplar){
 		LL->dados[k] = LL->dados[k+1];
 	LL->qtd--;
 	return 1;
+
 }
 
 //retorna o tamanho da lista de alunos

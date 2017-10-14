@@ -189,8 +189,6 @@ void imprime_lista(Lista* L){
 
 //funcao para impressao da lista de livros
 void imprimeListaLivros(ListaLivros *LL){
-	//	if(LL == NULL)
-	//              return;
 	noLivro *p;
 
 	p = LL->inicio;
@@ -282,7 +280,8 @@ int devolveLivro(Lista *L, ListaLivros *LL, Pilha *P, char *titulo, int *exempla
 	char aux[50] =  "----------------------------------------";
 	int i,erro;
 	char msgDev[100] = "O livro esta disponivel";			
-
+	
+	
 	Y = buscaLivro(LL,titulo,exemplar);
 
 	if(Y == NULL){
